@@ -1,0 +1,29 @@
+<?php
+
+
+namespace App\Services;
+use Mail;
+use App\Customer;
+use App\Mail\WelcomeNewCustomer;
+
+class CustomerService
+{
+	/**
+	 * @param $data
+	 * @return mixed
+	 */
+	public function save($data)
+	{
+		return Customer::insert($data);
+	}
+
+	/**
+	 * @param $data
+	 * @return mixed
+	 */
+	public function sendEmail($data)
+	{
+		$email = $data['email'];
+		return Mail::to($email)->send(new WelcomeNewCustomer($data));
+	}
+}
